@@ -1,2 +1,1 @@
-import ConfigPage from "./ConfigPage";
-export default ConfigPage;
+export {default} from "./ConfigPage";
