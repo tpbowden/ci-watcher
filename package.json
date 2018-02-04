@@ -17,6 +17,7 @@
     "recompose": "^0.26.0",
     "style-loader": "^0.20.1",
     "ts-loader": "^3.4.0",
+    "tslint": "^5.9.1",
     "typescript": "^2.7.1",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"

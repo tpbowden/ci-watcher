@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Route, MemoryRouter} from 'react-router';
+import React from "react";
+import ReactDOM from "react-dom";
+import {MemoryRouter, Route} from "react-router";
 
-import ConfigPage from './pages/ConfigPage';
+import ConfigPage from "./pages/ConfigPage";
 
 const App = () => (
   <MemoryRouter>
@@ -12,5 +12,5 @@ const App = () => (
 
 ReactDOM.render(
   <App />,
-  document.getElementById('app'),
+  document.getElementById("app"),
 );

@@ -1,17 +1,17 @@
-import React from 'react';
-import {withState, withHandlers, compose, StateHandler } from 'recompose';
-import {RouteComponentProps } from 'react-router';
-import Stepper, {Step, StepLabel, StepContent } from 'material-ui/Stepper';
-import Button from 'material-ui/Button';
-import PlatformSelectStep from './PlatformSelectStep'
+import Button from "material-ui/Button";
+import Stepper, {Step, StepContent, StepLabel } from "material-ui/Stepper";
+import React from "react";
+import {RouteComponentProps } from "react-router";
+import {compose, StateHandler, withHandlers, withState } from "recompose";
+import PlatformSelectStep from "./PlatformSelectStep";
 
 interface State {
-  stage: number,
+  stage: number;
 }
 
 interface EventHandlers {
-  next(): void
-  prev(): void
+  next(): void;
+  prev(): void;
 }
 
 interface Props extends State, EventHandlers {}
@@ -36,19 +36,19 @@ const ConfigPage: React.SFC<Props> = ({stage, next, prev}) => (
 );
 
 interface StateHandlers {
-  setStage: StateHandler<State>,
+  setStage: StateHandler<State>;
 }
 
 const enhance = compose<Props, {}>(
   withState(
-    'stage',
-    'setStage',
+    "stage",
+    "setStage",
     0,
   ),
   withHandlers<StateHandlers, EventHandlers>({
     next: ({setStage}) => () => setStage((stage: number) => stage + 1),
     prev: ({setStage}) => () => setStage((stage: number) => stage - 1),
-  })
-)
+  }),
+);
 
 export default enhance(ConfigPage);
