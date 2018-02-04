@@ -2,6 +2,7 @@ var path = require('path');
 
 module.exports = {
   entry: "./app/app.tsx",
+  devtool: "cheap-module-eval-source-map",
   module: {
     rules: [
       {

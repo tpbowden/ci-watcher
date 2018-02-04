@@ -6,7 +6,7 @@ import ConfigPage from './pages/ConfigPage';
 
 const App = () => (
   <MemoryRouter>
-    <Route path="/" render={ConfigPage} />
+    <Route path="/" render={() => <ConfigPage / >} />
   </MemoryRouter>
 );
 
