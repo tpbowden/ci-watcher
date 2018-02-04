@@ -3,7 +3,15 @@ import {Step, StepLabel, StepContent } from 'material-ui/Stepper';
 import Button from 'material-ui/Button';
 import { compose, withHandlers, ComponentEnhancer, StateHandler } from 'recompose';
 
-interface Props extends OuterProps, Handlers {
+interface OuterProps {
+  next(): void
+}
+
+interface EventHandlers {
+  validate(): void
+}
+
+interface Props extends OuterProps, EventHandlers {
 } 
 
 const PlatformSelectStep: React.SFC<Props> = ({ validate, next, ...rest }) => (
@@ -15,16 +23,8 @@ const PlatformSelectStep: React.SFC<Props> = ({ validate, next, ...rest }) => (
   </Step>
 )
 
-interface OuterProps {
-  next(): void
-}
-
-interface Handlers {
-  validate(): void
-}
-
 const enhance = compose<Props, OuterProps>(
-  withHandlers<Props, Handlers>({
+  withHandlers<Props, EventHandlers>({
     validate: (props) => (e: Event) => props.next()
   })
 )

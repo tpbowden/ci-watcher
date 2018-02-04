@@ -9,12 +9,15 @@ interface State {
   stage: number,
 }
 
-interface ConfigPageProps extends State {
-  next: StateHandler<State>,
-  prev: StateHandler<State>,
+interface EventHandlers {
+  next(): void
+  prev(): void
 }
 
-const ConfigPage: React.SFC<ConfigPageProps> = ({stage, next, prev}) => (
+interface Props extends State, EventHandlers {
+}
+
+const ConfigPage: React.SFC<Props> = ({stage, next, prev}) => (
   <Stepper activeStep={stage} orientation="vertical">
     <PlatformSelectStep next={next}/>
     <Step>
@@ -33,24 +36,19 @@ const ConfigPage: React.SFC<ConfigPageProps> = ({stage, next, prev}) => (
   </Stepper>
 );
 
-interface OuterProps {
+interface StateHandlers {
   setStage: StateHandler<State>,
 }
 
-interface Handlers {
-  next: StateHandler<State>,
-  prev: StateHandler<State>,
-}
-
-const enhance = compose(
+const enhance = compose<Props, {}>(
   withState(
     'stage',
     'setStage',
     0,
   ),
-  withHandlers<OuterProps, Handlers>({
-    next: ({setStage}) => () => setStage((stage: any) => stage + 1),
-    prev: ({setStage}) => () => setStage((stage: any) => stage - 1),
+  withHandlers<StateHandlers, EventHandlers>({
+    next: ({setStage}) => () => setStage((stage: number) => stage + 1),
+    prev: ({setStage}) => () => setStage((stage: number) => stage - 1),
   })
 )
 
