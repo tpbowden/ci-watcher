@@ -14,8 +14,7 @@ interface EventHandlers {
   prev(): void
 }
 
-interface Props extends State, EventHandlers {
-}
+interface Props extends State, EventHandlers {}
 
 const ConfigPage: React.SFC<Props> = ({stage, next, prev}) => (
   <Stepper activeStep={stage} orientation="vertical">

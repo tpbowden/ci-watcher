@@ -11,8 +11,7 @@ interface EventHandlers {
   validate(): void
 }
 
-interface Props extends OuterProps, EventHandlers {
-} 
+interface Props extends OuterProps, EventHandlers {} 
 
 const PlatformSelectStep: React.SFC<Props> = ({ validate, next, ...rest }) => (
   <Step {...rest}>
