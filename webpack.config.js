@@ -1,26 +1,30 @@
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
-module.exports = {
-  entry: "./app/app.tsx",
-  devtool: "cheap-module-eval-source-map",
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: path.resolve(__dirname, "node_modules"),
-      },
-      {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      }
-    ]
+const env = process.env.NODE_ENV === "production" ? "prod" : "dev"
+const environment = require('./config/webpack.' + env);
+const shared = require('./config/webpack.shared');
+
+const main = {
+  ...shared,
+  ...environment,
+  target: 'electron-main',
+  node: {
+    __dirname: false,
+    __filename: false,
   },
-  resolve: {
-    extensions:['.tsx', '.ts', '.js']
+  entry: {
+    main: './main.ts',
   },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  }
 };
+
+const renderer = {
+  ...shared,
+  ...environment,
+  target: 'electron-renderer',
+  entry: {
+    renderer: './app/app.tsx',
+  },
+}
+
+module.exports = [main, renderer];

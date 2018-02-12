@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "build": "webpack-dev-server",
-    "start": "./node_modules/.bin/electron ./main.js"
+    "build_renderer": "webpack-dev-server",
+    "build_main": "webpack -w",
+    "start": "./node_modules/.bin/electron ./dist/main.js"
   },
   "devDependencies": {
     "@types/react": "^16.0.36",

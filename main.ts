@@ -1,13 +1,14 @@
-var path = require('path');
-var url = require('url');
-var electron = require('electron');
+import path from 'path';
+import url from 'url';
+import electron from 'electron';
 
 var win = null;
 
 electron.app.on('ready', () => {
+  console.log(__dirname);
   win = new electron.BrowserWindow();
   win.loadURL(url.format({
-    pathname: path.join(__dirname, "./index.dev.html"),
+    pathname: path.join(__dirname, "../index.dev.html"),
     protocol: "file:",
     slashes: true,
   }));
