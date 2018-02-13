@@ -1,3 +1,4 @@
+const path = require('path');
 const shared = require('./webpack.shared');
 
 module.exports = {
@@ -8,6 +9,6 @@ module.exports = {
     __filename: false,
   },
   entry: {
-    main: './main.ts',
+    main: path.resolve(__dirname, '../main.ts'),
   },
 };
