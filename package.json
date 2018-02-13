@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "build_renderer": "webpack-dev-server",
-    "build_main": "webpack -w",
+    "build_renderer": "webpack-dev-server --port 8080 --config ./config/webpack.renderer.js",
+    "build_main": "webpack --config ./config/webpack.main.js -w",
+    "build": "webpack -p",
     "start": "./node_modules/.bin/electron ./dist/main.js"
   },
   "devDependencies": {
