@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const env = require('./webpack.env');
 
 module.exports = {
   module: {
@@ -29,4 +30,5 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, '../dist'),
   },
+  ...env,
 };
