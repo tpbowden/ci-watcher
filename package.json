@@ -8,7 +8,7 @@
   "devDependencies": {
     "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.3",
-    "@types/react-router": "^4.0.21",
+    "@types/react-router": "^4.0.22",
     "@types/recompose": "^0.24.4",
     "css-loader": "^0.28.9",
     "electron": "1.7.12",
