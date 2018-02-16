@@ -1,8 +1,9 @@
 import Button from "material-ui/Button";
 import {Step, StepContent, StepLabel } from "material-ui/Stepper";
 import { MenuList, MenuItem } from 'material-ui/Menu';
-import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
+import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormControlLabel } from 'material-ui/Form';
 
 import React from "react";
 import {
@@ -25,26 +26,44 @@ interface State {
   platform: string;
 }
 
-interface Props extends OuterProps, EventHandlers {
+interface Props extends OuterProps, EventHandlers, State {
   setPlatform: StateHandler<State>;
 }
 
-const PlatformSelectStep: React.SFC<Props> = ({ onChange, validate, next, setPlatform, ...rest }) => (
+interface PlatformList {
+  [key: string]: Platform
+}
+
+interface Platform {
+  name: String;
+}
+
+const platforms: PlatformList = {
+  circle: { name: "CircleCI"},
+  jenkins: {name: "Jenkins"},
+  travis: {name: "Travis"},
+}
+
+const PlatformSelectStep: React.SFC<Props> = ({ platform, onChange, validate, next, setPlatform, ...rest }) => (
   <Step {...rest}>
     <StepLabel>Select a platform</StepLabel>
     <StepContent>
-      <MenuList>
-        <MenuItem>
-          <ListItemText inset primary="CircleCI" />
-        </MenuItem>
-        <MenuItem>
-          <ListItemText inset primary="Jenkins" />
-        </MenuItem>
-        <MenuItem>
-          <ListItemText inset primary="Travis" />
-        </MenuItem>
-    </MenuList>
-        <Button size="small" raised color="primary" onClick={validate}>Next</Button>
+      <RadioGroup
+        onChange={onChange}
+        value={platform}
+      >
+        {
+          Object.keys(platforms).map((p) => (
+            <FormControlLabel
+              key={p}
+              value={p}
+              control={<Radio />}
+              label={platforms[p].name}
+            />
+          ))
+        }
+      </RadioGroup>
+      <Button size="small" raised color="primary" onClick={validate}>Next</Button>
     </StepContent>
   </Step>
 );
