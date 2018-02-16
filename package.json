@@ -17,7 +17,7 @@
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "recompose": "^0.26.0",
-    "style-loader": "^0.20.1",
+    "style-loader": "^0.20.2",
     "ts-loader": "^3.5.0",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
