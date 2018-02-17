@@ -13,67 +13,35 @@ import {
   StateHandler,
 } from "recompose";
 
-interface OuterProps {
-  next(): void;
+interface Platform {
+  name: string;
 }
 
-interface EventHandlers {
-  validate(e: React.MouseEvent<HTMLElement>): void;
+interface Props {
+  options: Platform[];
+  value?: string;
+  onSubmit(): void;
   onChange(e: React.FormEvent<HTMLInputElement>): void;
 }
 
-interface State {
-  platform: string;
-}
-
-interface Props extends OuterProps, EventHandlers, State {
-  setPlatform: StateHandler<State>;
-}
-
-interface PlatformList {
-  [key: string]: Platform
-}
-
-interface Platform {
-  name: String;
-}
-
-const platforms: PlatformList = {
-  circle: { name: "CircleCI"},
-  jenkins: {name: "Jenkins"},
-  travis: {name: "Travis"},
-}
-
-const PlatformSelectStep: React.SFC<Props> = ({ platform, onChange, validate, next, setPlatform, ...rest }) => (
+const PlatformSelectStep: React.SFC<Props> = ({ options, value, onSubmit, onChange, ...rest}) => (
   <Step {...rest}>
     <StepLabel>Select a platform</StepLabel>
     <StepContent>
-      <RadioGroup
-        onChange={onChange}
-        value={platform}
-      >
-        {
-          Object.keys(platforms).map((p) => (
+      <RadioGroup onChange={onChange} value={value}> {
+          options.map((p) => (
             <FormControlLabel
-              key={p}
-              value={p}
+              key={p.name}
+              value={p.name}
               control={<Radio />}
-              label={platforms[p].name}
+              label={p.name}
             />
           ))
         }
       </RadioGroup>
-      <Button size="small" raised color="primary" onClick={validate}>Next</Button>
+      <Button size="small" variant="raised" color="primary" onClick={onSubmit}>Next</Button>
     </StepContent>
   </Step>
 );
 
-const enhance = compose<Props, OuterProps>(
-  withState("platform", "setPlatform", ""),
-  withHandlers<Props, EventHandlers>({
-    validate: (props) => (e: React.MouseEvent<HTMLElement>) => props.next(),
-    onChange: (props) => (e: React.FormEvent<HTMLInputElement>) => props.setPlatform(e.currentTarget.value),
-  }),
-);
-
-export default enhance(PlatformSelectStep);
+export default PlatformSelectStep;
