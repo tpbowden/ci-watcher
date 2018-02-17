@@ -6,12 +6,6 @@ import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
 
 import React from "react";
-import {
-  compose,
-  withHandlers,
-  withState,
-  StateHandler,
-} from "recompose";
 
 interface Platform {
   name: string;
