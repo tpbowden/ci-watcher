@@ -21,15 +21,12 @@ interface OuterProps {
 
 export type NavigationProps = State & Updaters & OuterProps;
 
-const withStepNavigation= compose<{}, {}>(
-  withStateHandlers<State, Updaters, OuterProps>(
-    ({initialStage = 0}) => ({
-      stage: initialStage
-    }),
-    {
-      next: ({ stage }) => () => ({stage: stage + 1}),
-      prev: ({ stage }) => () => ({stage: stage - 1}),
-    })
+const withStepNavigation = withStateHandlers<State, Updaters, OuterProps>(
+  ({ initialStage = 0 }) => ({ stage: initialStage }),
+  {
+    next: ({ stage }) => () => ({ stage: stage + 1 }),
+    prev: ({ stage }) => () => ({ stage: stage - 1 }),
+  }
 );
 
 export default withStepNavigation;

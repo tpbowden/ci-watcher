@@ -19,15 +19,13 @@ interface PlatformOuterProps {
 
 export type PlatformProps = PlatformState & PlatformUpdaters & PlatformOuterProps;
 
-const withPlatformHandlers = compose(
-  withStateHandlers<PlatformState, PlatformUpdaters, PlatformOuterProps>(
-    ({initialPlatform}) => ({
-      platform: initialPlatform,
-    }),
-    {
-      selectPlatform: () => (newValue) => ({platform: newValue}),
-    }
-  )
+const withPlatformHandlers = withStateHandlers<PlatformState, PlatformUpdaters, PlatformOuterProps>(
+  ({ initialPlatform }) => ({
+    platform: initialPlatform,
+  }),
+  {
+    selectPlatform: () => (newValue) => ({ platform: newValue }),
+  }
 );
 
 export default withPlatformHandlers;
