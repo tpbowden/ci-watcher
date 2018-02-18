@@ -4,6 +4,7 @@ import { MenuList, MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControlLabel } from 'material-ui/Form';
+import {  withHandlers } from 'recompose';
 
 import React from "react";
 
@@ -11,14 +12,16 @@ interface Platform {
   name: string;
 }
 
-interface Props {
+interface OuterProps {
   options: Platform[];
   value?: string;
-  onSubmit(): void;
-  onChange(e: React.FormEvent<HTMLInputElement>): void;
+  submit(): void;
+  change(newValue: string): void;
 }
 
-const PlatformSelectStep: React.SFC<Props> = ({ options, value, onSubmit, onChange, ...rest}) => (
+type InnerProps = OuterProps & Handlers;
+
+const PlatformSelectStep: React.SFC<InnerProps> = ({ options, value, onSubmit, onChange, ...rest}) => (
   <Step {...rest}>
     <StepLabel>Select a platform</StepLabel>
     <StepContent>
@@ -38,4 +41,14 @@ const PlatformSelectStep: React.SFC<Props> = ({ options, value, onSubmit, onChan
   </Step>
 );
 
-export default PlatformSelectStep;
+interface Handlers {
+  onSubmit(): void;
+  onChange(e: React.FormEvent<HTMLInputElement>): void;
+}
+
+const enhance = withHandlers<OuterProps, Handlers>({
+  onSubmit: ({submit}) => () => submit(),
+  onChange: ({change}) => (e: React.FormEvent<HTMLInputElement>) => change(e.currentTarget.value),
+})
+
+export default enhance(PlatformSelectStep);

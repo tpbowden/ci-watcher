@@ -1,28 +1,35 @@
 import {
   compose,
   withState,
-  withHandlers,
+  withStateHandlers,
   StateHandler,
+  StateHandlerMap,
 } from 'recompose';
 
-interface NavigationState {
+interface State {
   stage: number;
-  setStage: StateHandler<NavigationState>;
 }
 
-interface NavigationHandlers {
-  next(): void;
-  prev(): void;
+interface Updaters extends StateHandlerMap<State> {
+  next: StateHandler<State>;
+  prev: StateHandler<State>;
 }
 
-export interface NavigationProps extends NavigationState, NavigationHandlers {}
+interface OuterProps {
+  initialStage?: number;
+}
+
+export type NavigationProps = State & Updaters & OuterProps;
 
 const withStepNavigation= compose<{}, {}>(
-  withState("stage", "setStage", 0),
-  withHandlers<NavigationState, NavigationHandlers>({
-    next: ({ setStage }) => () => setStage((stage: number) => stage + 1),
-    prev: ({ setStage }) => () => setStage((stage: number) => stage - 1),
-  })
+  withStateHandlers<State, Updaters, OuterProps>(
+    ({initialStage = 0}) => ({
+      stage: initialStage
+    }),
+    {
+      next: ({ stage }) => () => ({stage: stage + 1}),
+      prev: ({ stage }) => () => ({stage: stage - 1}),
+    })
 );
 
 export default withStepNavigation;

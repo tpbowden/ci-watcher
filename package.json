@@ -13,6 +13,7 @@
     "css-loader": "^0.28.9",
     "electron": "1.8.2",
     "material-ui": "^1.0.0-beta.33",
+    "prettier": "^1.10.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",

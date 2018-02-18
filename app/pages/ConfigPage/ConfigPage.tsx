@@ -2,10 +2,15 @@ import Button from "material-ui/Button";
 import Stepper, {Step, StepContent, StepLabel } from "material-ui/Stepper";
 import React from "react";
 import {RouteComponentProps } from "react-router";
-import {compose, StateHandler, withHandlers, withState } from "recompose";
+import {
+  compose,
+  withHandlers,
+} from "recompose";
 import PlatformSelectStep from "./PlatformSelectStep";
 import AuthenticationStep from "./AuthenticationStep";
 import withStepNavigation, { NavigationProps } from './withStepNavigation';
+import withPlatformHandlers, {PlatformProps } from './withPlatformHandlers';
+import withValidations, {ValidationProps} from './withValidations';
 
 interface Platform {
   name: string;
@@ -26,15 +31,15 @@ const platformMap: PlatformMap = platforms.reduce(
   {}
 );
 
-interface Props extends NavigationProps, PlatformProps, ValidationHandlers {}
+type Props = NavigationProps & PlatformProps & ValidationProps;
 
 const ConfigPage: React.SFC<Props> = ({validatePlatformSelection, stage, next, prev, selectPlatform, platform}) => (
   <Stepper activeStep={stage} orientation="vertical">
     <PlatformSelectStep
       options={platforms}
       value={platform}
-      onSubmit={validatePlatformSelection}
-      onChange={selectPlatform}/>
+      submit={validatePlatformSelection}
+      change={selectPlatform}/>
     <AuthenticationStep
       next={next}
       prev={prev}
@@ -48,37 +53,10 @@ const ConfigPage: React.SFC<Props> = ({validatePlatformSelection, stage, next, p
   </Stepper>
 );
 
-interface ValidationHandlers {
-  validatePlatformSelection(): void;
-}
-
-interface PlatformState {
-  platform?: string;
-  setPlatform: StateHandler<PlatformState>;
-}
-
-interface PlatformHandlers {
-  selectPlatform(e: React.FormEvent<HTMLInputElement>): void;
-}
-
-interface PlatformProps extends PlatformState, PlatformHandlers {}
-
-
-const withPlatformHandlers = compose(
-  withState("platform", "setPlatform", null),
-  withHandlers<PlatformState, PlatformHandlers>({
-    selectPlatform: ({ setPlatform }) => (e: React.FormEvent<HTMLInputElement>) => setPlatform(e.currentTarget.value),
-  })
-);
-
-const withValidationHandlers = withHandlers<PlatformHandlers & PlatformState & NavigationProps, ValidationHandlers>({
-  validatePlatformSelection: ({ platform, next }) => () => platform && next(),
-})
-
 const enhance = compose<Props, {}>(
   withStepNavigation,
   withPlatformHandlers,
-  withValidationHandlers,
+  withValidations,
 );
 
 export default enhance(ConfigPage);
