@@ -2,8 +2,8 @@ import {
   compose,
   StateHandler,
   StateHandlerMap,
-  withStateHandlers,
-} from 'recompose';
+  withStateHandlers
+} from "recompose";
 
 interface PlatformState {
   platform?: string;
@@ -17,14 +17,20 @@ interface PlatformOuterProps {
   initialPlatform?: string;
 }
 
-export type PlatformProps = PlatformState & PlatformUpdaters & PlatformOuterProps;
+export type PlatformProps = PlatformState &
+  PlatformUpdaters &
+  PlatformOuterProps;
 
-const withPlatformHandlers = withStateHandlers<PlatformState, PlatformUpdaters, PlatformOuterProps>(
+const withPlatformHandlers = withStateHandlers<
+  PlatformState,
+  PlatformUpdaters,
+  PlatformOuterProps
+>(
   ({ initialPlatform }) => ({
-    platform: initialPlatform,
+    platform: initialPlatform
   }),
   {
-    selectPlatform: () => (newValue) => ({ platform: newValue }),
+    selectPlatform: () => newValue => ({ platform: newValue })
   }
 );
 

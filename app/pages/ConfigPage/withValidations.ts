@@ -1,8 +1,4 @@
-import {
-  compose,
-  withHandlers,
-  withState,
-} from 'recompose';
+import { compose, withHandlers, withState } from "recompose";
 
 export interface ValidationProps extends State {
   validatePlatformSelection(): void;
@@ -24,15 +20,19 @@ interface StateHandlers {
 const withValidations = compose(
   withState("platformSelectError", "setPlatformSelectError", undefined),
   withHandlers<OuterProps & StateHandlers, ValidationProps>({
-    validatePlatformSelection: ({ setPlatformSelectError, platform, next }) => () => {
+    validatePlatformSelection: ({
+      setPlatformSelectError,
+      platform,
+      next
+    }) => () => {
       if (platform) {
         setPlatformSelectError(undefined);
         next();
       } else {
         setPlatformSelectError("Please select a platform");
-      } 
+      }
     }
   })
-)
+);
 
 export default withValidations;

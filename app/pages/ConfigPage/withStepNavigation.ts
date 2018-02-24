@@ -3,8 +3,8 @@ import {
   withState,
   withStateHandlers,
   StateHandler,
-  StateHandlerMap,
-} from 'recompose';
+  StateHandlerMap
+} from "recompose";
 
 interface State {
   stage: number;
@@ -25,7 +25,7 @@ const withStepNavigation = withStateHandlers<State, Updaters, OuterProps>(
   ({ initialStage = 0 }) => ({ stage: initialStage }),
   {
     next: ({ stage }) => () => ({ stage: stage + 1 }),
-    prev: ({ stage }) => () => ({ stage: stage - 1 }),
+    prev: ({ stage }) => () => ({ stage: stage - 1 })
   }
 );
 
