@@ -4,18 +4,22 @@
       "webpack-dev-server --port 8080 --config ./config/webpack.renderer.js",
     "build_main": "webpack --config ./config/webpack.main.js -w",
     "build": "webpack -p",
-    "start": "./node_modules/.bin/electron ./dist/main.js",
-    "lint": "prettier --list-different './**/*.{ts,tsx,js,jsx,json}'",
-    "format": "prettier --write './**/*.{ts,tsx,js,jsx,json}'"
+    "start": "electron ./dist/main.js",
+    "dev":
+      "webpack --config ./config/webpack.main.js && concurrently 'yarn start' 'yarn build_renderer' 'yarn build_main'",
+    "lint": "prettier --list-different './**/*.{ts,tsx,js,jsx,json}' !./dist*",
+    "format": "prettier --write './**/*.{ts,tsx,js,jsx,json}' !./dist/*"
   },
   "devDependencies": {
     "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.4",
     "@types/react-router": "^4.0.22",
     "@types/recompose": "^0.24.5",
+    "concurrently": "^3.5.1",
     "css-loader": "^0.28.10",
     "electron": "1.8.2",
     "material-ui": "^1.0.0-beta.34",
+    "material-ui-icons": "^1.0.0-beta.17",
     "prettier": "^1.10.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -28,7 +32,5 @@
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.1"
   },
-  "dependencies": {
-    "material-ui-icons": "^1.0.0-beta.17"
-  }
+  "dependencies": {}
 }
