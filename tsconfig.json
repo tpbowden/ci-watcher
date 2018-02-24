@@ -13,7 +13,5 @@
     },
     "jsx": "react"
   },
-  "include": [
-    "app/**/*"
-  ]
+  "include": ["app/**/*"]
 }

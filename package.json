@@ -1,9 +1,12 @@
 {
   "scripts": {
-    "build_renderer": "webpack-dev-server --port 8080 --config ./config/webpack.renderer.js",
+    "build_renderer":
+      "webpack-dev-server --port 8080 --config ./config/webpack.renderer.js",
     "build_main": "webpack --config ./config/webpack.main.js -w",
     "build": "webpack -p",
-    "start": "./node_modules/.bin/electron ./dist/main.js"
+    "start": "./node_modules/.bin/electron ./dist/main.js",
+    "lint": "prettier --list-different './**/*.{ts,tsx,js,jsx,json}'",
+    "format": "prettier --write './**/*.{ts,tsx,js,jsx,json}'"
   },
   "devDependencies": {
     "@types/react": "^16.0.38",

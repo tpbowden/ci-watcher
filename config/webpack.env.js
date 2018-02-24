@@ -1,9 +1,9 @@
 const prod = {
-  devtool: 'source-map',
-}
+  devtool: "source-map"
+};
 
 const dev = {
-  devtool: 'cheap-module-eval-source-map',
-}
+  devtool: "cheap-module-eval-source-map"
+};
 
-module.exports = process.env.NODE_ENV === 'production' ? prod : dev;
+module.exports = process.env.NODE_ENV === "production" ? prod : dev;
