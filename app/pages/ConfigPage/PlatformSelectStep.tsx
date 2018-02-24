@@ -1,10 +1,15 @@
 import Button from "material-ui/Button";
-import {Step, StepContent, StepLabel } from "material-ui/Stepper";
-import { MenuList, MenuItem } from 'material-ui/Menu';
-import Typography from 'material-ui/Typography';
-import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormControl, FormHelperText, FormControlLabel } from 'material-ui/Form';
-import {  withHandlers } from 'recompose';
+import { Step, StepContent, StepLabel } from "material-ui/Stepper";
+import { MenuList, MenuItem } from "material-ui/Menu";
+import Typography from "material-ui/Typography";
+import Radio, { RadioGroup } from "material-ui/Radio";
+import {
+  FormControl,
+  FormHelperText,
+  FormControlLabel
+} from "material-ui/Form";
+import { withHandlers } from "recompose";
+import ReportProblemIcon from "material-ui-icons/ReportProblem";
 
 import React from "react";
 
@@ -17,29 +22,47 @@ interface OuterProps {
   value?: string;
   submit(): void;
   change(newValue: string): void;
-  error?: string
+  error?: string;
 }
 
 type InnerProps = OuterProps & Handlers;
 
-const PlatformSelectStep: React.SFC<InnerProps> = ({ error, options, value, onSubmit, onChange, ...rest}) => (
+const PlatformSelectStep: React.SFC<InnerProps> = ({
+  error,
+  options,
+  value,
+  onSubmit,
+  onChange,
+  ...rest
+}) => (
   <Step {...rest}>
-    <StepLabel>Select a platform</StepLabel>
+    <StepLabel
+      icon={error ? <ReportProblemIcon style={{ color: "red" }} /> : 1}
+    >
+      Select a platform
+    </StepLabel>
     <StepContent>
       <FormControl error={Boolean(error)}>
-        { error && <FormHelperText>{ error }</FormHelperText> }
-        <RadioGroup onChange={onChange} value={value}> {
-          options.map((p) => (
+        {error && <FormHelperText>{error}</FormHelperText>}
+        <RadioGroup onChange={onChange} value={value}>
+          {" "}
+          {options.map(p => (
             <FormControlLabel
               key={p.name}
               value={p.name}
               control={<Radio />}
               label={p.name}
             />
-          ))
-        }
+          ))}
         </RadioGroup>
-        <Button size="small" variant="raised" color="primary" onClick={onSubmit}>Next</Button>
+        <Button
+          size="small"
+          variant="raised"
+          color="primary"
+          onClick={onSubmit}
+        >
+          Next
+        </Button>
       </FormControl>
     </StepContent>
   </Step>
@@ -51,8 +74,9 @@ interface Handlers {
 }
 
 const enhance = withHandlers<OuterProps, Handlers>({
-  onSubmit: ({submit}) => () => submit(),
-  onChange: ({change}) => (e: React.FormEvent<HTMLInputElement>) => change(e.currentTarget.value),
-})
+  onSubmit: ({ submit }) => () => submit(),
+  onChange: ({ change }) => (e: React.FormEvent<HTMLInputElement>) =>
+    change(e.currentTarget.value)
+});
 
 export default enhance(PlatformSelectStep);

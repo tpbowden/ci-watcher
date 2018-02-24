@@ -5,27 +5,21 @@ import {
   withStateHandlers
 } from "recompose";
 
-interface PlatformState {
+interface State {
   platform?: string;
 }
 
-interface PlatformUpdaters extends StateHandlerMap<PlatformState> {
-  selectPlatform: StateHandler<PlatformState>;
+interface Updaters extends StateHandlerMap<State> {
+  selectPlatform: StateHandler<State>;
 }
 
-interface PlatformOuterProps {
+interface OuterProps {
   initialPlatform?: string;
 }
 
-export type PlatformProps = PlatformState &
-  PlatformUpdaters &
-  PlatformOuterProps;
+export type PlatformProps = State & Updaters & OuterProps;
 
-const withPlatformHandlers = withStateHandlers<
-  PlatformState,
-  PlatformUpdaters,
-  PlatformOuterProps
->(
+const withPlatformHandlers = withStateHandlers<State, Updaters, OuterProps>(
   ({ initialPlatform }) => ({
     platform: initialPlatform
   }),
