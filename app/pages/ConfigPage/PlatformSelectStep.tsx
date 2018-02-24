@@ -45,7 +45,6 @@ const PlatformSelectStep: React.SFC<InnerProps> = ({
       <FormControl error={Boolean(error)}>
         {error && <FormHelperText>{error}</FormHelperText>}
         <RadioGroup onChange={onChange} value={value}>
-          {" "}
           {options.map(p => (
             <FormControlLabel
               key={p.name}
