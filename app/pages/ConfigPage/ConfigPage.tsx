@@ -33,13 +33,14 @@ const platformMap: PlatformMap = platforms.reduce(
 
 type Props = NavigationProps & PlatformProps & ValidationProps;
 
-const ConfigPage: React.SFC<Props> = ({validatePlatformSelection, stage, next, prev, selectPlatform, platform}) => (
+const ConfigPage: React.SFC<Props> = ({platformSelectError, validatePlatformSelection, stage, next, prev, selectPlatform, platform}) => (
   <Stepper activeStep={stage} orientation="vertical">
     <PlatformSelectStep
       options={platforms}
       value={platform}
       submit={validatePlatformSelection}
-      change={selectPlatform}/>
+      change={selectPlatform}
+      error={platformSelectError}/>
     <AuthenticationStep
       next={next}
       prev={prev}

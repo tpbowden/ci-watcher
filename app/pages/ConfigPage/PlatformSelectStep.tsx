@@ -3,7 +3,7 @@ import {Step, StepContent, StepLabel } from "material-ui/Stepper";
 import { MenuList, MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import Radio, { RadioGroup } from 'material-ui/Radio';
-import { FormControlLabel } from 'material-ui/Form';
+import { FormControl, FormHelperText, FormControlLabel } from 'material-ui/Form';
 import {  withHandlers } from 'recompose';
 
 import React from "react";
@@ -17,15 +17,18 @@ interface OuterProps {
   value?: string;
   submit(): void;
   change(newValue: string): void;
+  error?: string
 }
 
 type InnerProps = OuterProps & Handlers;
 
-const PlatformSelectStep: React.SFC<InnerProps> = ({ options, value, onSubmit, onChange, ...rest}) => (
+const PlatformSelectStep: React.SFC<InnerProps> = ({ error, options, value, onSubmit, onChange, ...rest}) => (
   <Step {...rest}>
     <StepLabel>Select a platform</StepLabel>
     <StepContent>
-      <RadioGroup onChange={onChange} value={value}> {
+      <FormControl error={Boolean(error)}>
+        { error && <FormHelperText>{ error }</FormHelperText> }
+        <RadioGroup onChange={onChange} value={value}> {
           options.map((p) => (
             <FormControlLabel
               key={p.name}
@@ -35,8 +38,9 @@ const PlatformSelectStep: React.SFC<InnerProps> = ({ options, value, onSubmit, o
             />
           ))
         }
-      </RadioGroup>
-      <Button size="small" variant="raised" color="primary" onClick={onSubmit}>Next</Button>
+        </RadioGroup>
+        <Button size="small" variant="raised" color="primary" onClick={onSubmit}>Next</Button>
+      </FormControl>
     </StepContent>
   </Step>
 );
