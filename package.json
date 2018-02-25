@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "scripts": {
-    "build": "NODE_ENV=production webpack -p --progress",
+    "build": "NODE_ENV=production webpack -p --silent",
     "build:renderer": "webpack-dev-server --port 8080 --config ./config/webpack.renderer.js",
     "build:main": "webpack --config ./config/webpack.main.js -w",
     "build:watch": "concurrently 'yarn build:renderer' 'yarn build:main'",
@@ -10,7 +10,7 @@
     "prettier:write": "prettier --write './**/*.{ts,tsx,js,jsx,json}'",
     "tslint": "tslint --project .",
     "test": "mocha",
-    "ci": "yarn prettier && yarn tslint && yarn test"
+    "ci": "yarn prettier && yarn tslint && yarn build && yarn test"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
