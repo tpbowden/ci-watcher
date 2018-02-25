@@ -2,38 +2,35 @@ version: 2
 jobs:
   install_dependencies:
     docker:
-      - image: circleci-node:8.9
+      - image: circleci/node:8.9
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}
-          - v1-dependencies-
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
       - run: yarn install
       - save_cache:
-        paths:
-          - node_modules
-        key: v1-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
 
   check_syntax:
     docker:
       - image: circleci/node:8.9
-    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn lint
 
   integration_test:
     docker:
       - image: circleci/node:8.9-browsers
-    working_directory: ~/repo
     steps:
+      - checkout
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn build && yarn test:integration
 
 workflows:
@@ -42,8 +39,8 @@ workflows:
     jobs:
       - install_dependencies
       - check_syntax:
-        requires:
-          - install_dependencies
+          requires:
+            - install_dependencies
       - integration_test:
-        requires:
-          - install_dependencies
+          requires:
+            - install_dependencies
