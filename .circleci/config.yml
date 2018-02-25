@@ -14,6 +14,19 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
+  
+  build:
+    docker:
+      - image: circleci/node:8.9
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn build
+      - save_cache:
+          paths:
+            - dist
+          key: v1-build-{{ .Revision }}
 
   check_syntax:
     docker:
@@ -31,16 +44,22 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
-      - run: yarn build && yarn test:integration
+      - restore_cache:
+          key: v1-build-{{ .Revision }}
+      - run: yarn test:integration
 
 workflows:
   version: 2
   build_test_deploy:
     jobs:
       - install_dependencies
+      - build:
+          requires:
+            - install_dependencies
       - check_syntax:
           requires:
             - install_dependencies
       - integration_test:
           requires:
             - install_dependencies
+            - build
