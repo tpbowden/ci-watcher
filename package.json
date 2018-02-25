@@ -1,12 +1,10 @@
 {
   "scripts": {
-    "build_renderer":
-      "webpack-dev-server --port 8080 --config ./config/webpack.renderer.js",
+    "build_renderer": "webpack-dev-server --port 8080 --config ./config/webpack.renderer.js",
     "build_main": "webpack --config ./config/webpack.main.js -w",
     "build": "webpack -p",
     "start": "electron ./dist/main.js",
-    "dev":
-      "webpack --config ./config/webpack.main.js && concurrently 'yarn start' 'yarn build_renderer' 'yarn build_main'",
+    "dev": "webpack --config ./config/webpack.main.js && concurrently 'yarn start' 'yarn build_renderer' 'yarn build_main'",
     "lint": "prettier --list-different './**/*.{ts,tsx,js,jsx,json}' !./dist*",
     "format": "prettier --write './**/*.{ts,tsx,js,jsx,json}' !./dist/*"
   },
@@ -26,10 +24,11 @@
     "react-router": "^4.2.0",
     "recompose": "^0.26.0",
     "style-loader": "^0.20.2",
-    "ts-loader": "^3.5.0",
+    "ts-loader": "^4.0.0",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
-    "webpack": "^3.11.0",
+    "webpack": "^4.0.0",
+    "webpack-cli": "^2.0.8",
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {}
