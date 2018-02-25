@@ -9,8 +9,8 @@
     "prettier": "prettier --list-different './**/*.{ts,tsx,js,jsx,json}'",
     "prettier:write": "prettier --write './**/*.{ts,tsx,js,jsx,json}'",
     "tslint": "tslint --project .",
-    "test": "mocha",
-    "ci": "yarn prettier && yarn tslint && yarn build && yarn test"
+    "test:integration": "mocha",
+    "lint": "yarn prettier && yarn tslint"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
