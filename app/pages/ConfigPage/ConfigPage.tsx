@@ -1,12 +1,13 @@
+import React from "react";
+
 import Button from "material-ui/Button";
 import Stepper, { Step, StepContent, StepLabel } from "material-ui/Stepper";
-import React from "react";
-import { RouteComponentProps } from "react-router";
 import { compose, withHandlers } from "recompose";
-import PlatformSelectStep from "./PlatformSelectStep";
+
 import AuthenticationStep from "./AuthenticationStep";
-import withStepNavigation, { NavigationProps } from "./withStepNavigation";
+import PlatformSelectStep from "./PlatformSelectStep";
 import withPlatformHandlers, { PlatformProps } from "./withPlatformHandlers";
+import withStepNavigation, { NavigationProps } from "./withStepNavigation";
 import withValidations, { ValidationProps } from "./withValidations";
 
 interface Platform {

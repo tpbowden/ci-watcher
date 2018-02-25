@@ -24,7 +24,7 @@ const withPlatformHandlers = withStateHandlers<State, Updaters, OuterProps>(
     platform: initialPlatform
   }),
   {
-    selectPlatform: () => newValue => ({ platform: newValue })
+    selectPlatform: () => (newValue) => ({ platform: newValue })
   }
 );
 

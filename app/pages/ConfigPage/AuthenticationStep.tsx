@@ -1,12 +1,13 @@
 import React from "react";
-import { Step, StepContent, StepLabel } from "material-ui/Stepper";
+
 import Button from "material-ui/Button";
+import { Step, StepContent, StepLabel } from "material-ui/Stepper";
 import TextField from "material-ui/TextField";
 
 interface Props {
+  platform: string;
   next(): void;
   prev(): void;
-  platform: string;
 }
 
 const AuthenticationStep: React.SFC<Props> = ({

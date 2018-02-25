@@ -1,28 +1,28 @@
+import React from "react";
+
+import ReportProblemIcon from "material-ui-icons/ReportProblem";
 import Button from "material-ui/Button";
-import { Step, StepContent, StepLabel } from "material-ui/Stepper";
-import { MenuList, MenuItem } from "material-ui/Menu";
-import Typography from "material-ui/Typography";
-import Radio, { RadioGroup } from "material-ui/Radio";
 import {
   FormControl,
-  FormHelperText,
-  FormControlLabel
+  FormControlLabel,
+  FormHelperText
 } from "material-ui/Form";
+import { MenuItem, MenuList } from "material-ui/Menu";
+import Radio, { RadioGroup } from "material-ui/Radio";
+import { Step, StepContent, StepLabel } from "material-ui/Stepper";
+import Typography from "material-ui/Typography";
 import { withHandlers } from "recompose";
-import ReportProblemIcon from "material-ui-icons/ReportProblem";
-
-import React from "react";
 
 interface Platform {
   name: string;
 }
 
 interface OuterProps {
+  error?: string;
   options: Platform[];
   value?: string;
   submit(): void;
   change(newValue: string): void;
-  error?: string;
 }
 
 type InnerProps = OuterProps & Handlers;
@@ -45,7 +45,7 @@ const PlatformSelectStep: React.SFC<InnerProps> = ({
       <FormControl error={Boolean(error)}>
         {error && <FormHelperText>{error}</FormHelperText>}
         <RadioGroup onChange={onChange} value={value}>
-          {options.map(p => (
+          {options.map((p) => (
             <FormControlLabel
               key={p.name}
               value={p.name}
@@ -73,9 +73,9 @@ interface Handlers {
 }
 
 const enhance = withHandlers<OuterProps, Handlers>({
-  onSubmit: ({ submit }) => () => submit(),
   onChange: ({ change }) => (e: React.FormEvent<HTMLInputElement>) =>
-    change(e.currentTarget.value)
+    change(e.currentTarget.value),
+  onSubmit: ({ submit }) => () => submit()
 });
 
 export default enhance(PlatformSelectStep);

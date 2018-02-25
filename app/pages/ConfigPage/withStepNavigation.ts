@@ -1,9 +1,9 @@
 import {
   compose,
-  withState,
-  withStateHandlers,
   StateHandler,
-  StateHandlerMap
+  StateHandlerMap,
+  withState,
+  withStateHandlers
 } from "recompose";
 
 interface State {
