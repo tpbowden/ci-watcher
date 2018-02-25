@@ -1,4 +1,5 @@
 {
+  "license": "MIT",
   "scripts": {
     "build_renderer": "webpack-dev-server --port 8080 --config ./config/webpack.renderer.js",
     "build_main": "webpack --config ./config/webpack.main.js -w",
@@ -7,7 +8,8 @@
     "dev": "webpack --config ./config/webpack.main.js && concurrently 'yarn start' 'yarn build_renderer' 'yarn build_main'",
     "prettier": "prettier --list-different './**/*.{ts,tsx,js,jsx,json}'",
     "prettier:write": "prettier --write './**/*.{ts,tsx,js,jsx,json}'",
-    "tslint": "tslint --project ."
+    "tslint": "tslint --project .",
+    "test": "yarn prettier && yarn tslint"
   },
   "devDependencies": {
     "@types/react": "^16.0.38",
