@@ -29,7 +29,7 @@
     "electron": "1.8.2",
     "electron-packager": "^11.0.1",
     "material-ui": "^1.0.0-beta.35",
-    "material-ui-icons": "^1.0.0-beta.17",
+    "material-ui-icons": "^1.0.0-beta.35",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
