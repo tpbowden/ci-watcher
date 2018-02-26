@@ -18,7 +18,7 @@
     "prettier": "^1.10.2",
     "spectron": "^3.8.0",
     "tslint": "^5.9.1",
-    "webpack-dev-server": "^3.0.0-beta.1"
+    "webpack-dev-server": "^3.0.0"
   },
   "dependencies": {
     "@types/react": "^16.0.38",
