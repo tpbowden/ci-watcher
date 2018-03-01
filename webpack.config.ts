@@ -1,4 +1,5 @@
-const main = require("./config/webpack.main");
-const renderer = require("./config/webpack.renderer");
+import webpack from "webpack";
+import main from "./config/webpack.main";
+import renderer from "./config/webpack.renderer";
 
-module.exports = [main, renderer];
+export default [main, renderer];

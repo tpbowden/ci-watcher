@@ -1,7 +1,7 @@
-const path = require("path");
-const shared = require("./webpack.shared");
+import path from "path";
+import shared from "./webpack.shared";
 
-module.exports = {
+export default {
   ...shared,
   target: "electron-renderer",
   entry: {

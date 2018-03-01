@@ -1,8 +1,8 @@
-const path = require("path");
-const webpack = require("webpack");
-const env = require("./webpack.env");
+import path from "path";
+import webpack from "webpack";
+import env from "./webpack.env";
 
-module.exports = {
+export default {
   module: {
     rules: [
       {

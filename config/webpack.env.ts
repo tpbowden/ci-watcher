@@ -8,4 +8,6 @@ const dev = {
   devtool: "cheap-module-eval-source-map"
 };
 
-module.exports = process.env.NODE_ENV === "production" ? prod : dev;
+const config = process.env.NODE_ENV === "production" ? prod : dev;
+
+export default config;
