@@ -1,4 +1,5 @@
 import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 import shared from "./webpack.shared";
 
 export default {
@@ -10,5 +11,11 @@ export default {
   },
   entry: {
     main: path.resolve(__dirname, "../main.ts")
-  }
+  },
+  plugins: [
+    ...shared.plugins,
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "../index.html.ejs")
+    })
+  ]
 };
