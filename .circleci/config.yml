@@ -47,6 +47,21 @@ jobs:
       - restore_cache:
           key: v1-build-{{ .Revision }}
       - run: yarn test:integration
+  
+  package:
+    docker:
+      - image: circleci/node:8.9
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          key: v1-build-{{ .Revision }}
+      - run: yarn package
+      - run:  cd package && zip -rqy /tmp/CIWatcher-darwin-x64.zip ./CIWatcher-darwin-x64/*
+      - store_artifacts:
+          path: /tmp/CIWatcher-darwin-x64.zip
+          destination: CIWatcher-darwin-x64.zip
 
 workflows:
   version: 2
@@ -63,3 +78,8 @@ workflows:
           requires:
             - install_dependencies
             - build
+      - package:
+          requires:
+            - build
+            - integration_test
+            - check_syntax

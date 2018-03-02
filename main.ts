@@ -5,7 +5,6 @@ import electron from "electron";
 var win = null;
 
 electron.app.on("ready", () => {
-  console.log(__dirname);
   win = new electron.BrowserWindow();
   win.loadURL(
     url.format({
