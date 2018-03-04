@@ -10,7 +10,7 @@ export default {
     __filename: false
   },
   entry: {
-    main: path.resolve(__dirname, "../main.ts")
+    main: path.resolve(__dirname, "../src/main/index.ts")
   },
   plugins: [
     ...shared.plugins,

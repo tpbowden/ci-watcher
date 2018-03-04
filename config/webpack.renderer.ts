@@ -5,6 +5,6 @@ export default {
   ...shared,
   target: "electron-renderer",
   entry: {
-    renderer: path.resolve(__dirname, "../app/app.tsx")
+    renderer: path.resolve(__dirname, "../src/renderer/index.tsx")
   }
 };

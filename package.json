@@ -12,7 +12,7 @@
     "tslint": "tslint --project .",
     "test:integration": "mocha",
     "lint": "yarn prettier && yarn tslint",
-    "package": "electron-packager . CIWatcher --platform=darwin --arch=x64 --prune --asar --ignore='node_modules' 'app' 'test' '*.{ts,tsx}' --out package",
+    "package": "electron-packager . CIWatcher --platform=darwin --arch=x64 --prune --asar --ignore='node_modules' 'src' 'test' --out package",
     "package:all": "electron-packager . CIWatcher --all"
   },
   "devDependencies": {
