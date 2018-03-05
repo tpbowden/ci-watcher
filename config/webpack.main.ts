@@ -15,7 +15,8 @@ export default {
   plugins: [
     ...shared.plugins,
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "../index.html.ejs")
+      template: path.resolve(__dirname, "../index.html.ejs"),
+      inject: false
     })
   ]
 };

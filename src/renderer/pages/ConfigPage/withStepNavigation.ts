@@ -15,14 +15,10 @@ interface Updaters extends StateHandlerMap<State> {
   prev: StateHandler<State>;
 }
 
-interface OuterProps {
-  initialStage?: number;
-}
+export type NavigationProps = State & Updaters;
 
-export type NavigationProps = State & Updaters & OuterProps;
-
-const withStepNavigation = withStateHandlers<State, Updaters, OuterProps>(
-  ({ initialStage = 0 }) => ({ stage: initialStage }),
+const withStepNavigation = withStateHandlers<State, Updaters, {}>(
+  { stage: 0 },
   {
     next: ({ stage }) => () => ({ stage: stage + 1 }),
     prev: ({ stage }) => () => ({ stage: stage - 1 })

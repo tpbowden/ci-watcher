@@ -4,51 +4,47 @@ import Button from "material-ui/Button";
 import Stepper, { Step, StepContent, StepLabel } from "material-ui/Stepper";
 import { compose, withHandlers } from "recompose";
 
-import AuthenticationStep from "./AuthenticationStep";
-import PlatformSelectStep from "./PlatformSelectStep";
-import withPlatformHandlers, { PlatformProps } from "./withPlatformHandlers";
+import platforms, { getPlatform } from "renderer/platforms";
+
+import PlatformSelector from "renderer/PlatformSelector";
+import TokenInput from "renderer/TokenInput";
+import withPlatformHandlers, { PlatformProps } from "./withConfigHandlers";
 import withStepNavigation, { NavigationProps } from "./withStepNavigation";
-import withValidations, { ValidationProps } from "./withValidations";
 
-interface Platform {
-  name: string;
-}
-
-interface PlatformMap {
-  [key: string]: Platform;
-}
-
-const platforms = [
-  { name: "Circle CI" },
-  { name: "Jenkins" },
-  { name: "Travis" }
-];
-
-const platformMap: PlatformMap = platforms.reduce(
-  (acc: PlatformMap, p: Platform) => Object.assign({}, acc, { [p.name]: p }),
-  {}
-);
-
-type Props = NavigationProps & PlatformProps & ValidationProps;
+type Props = NavigationProps & PlatformProps;
 
 const ConfigPage: React.SFC<Props> = ({
-  platformSelectError,
-  validatePlatformSelection,
   stage,
   next,
   prev,
-  selectPlatform,
+  setPlatform,
+  token,
+  setToken,
   platform
 }) => (
   <Stepper activeStep={stage} orientation="vertical">
-    <PlatformSelectStep
-      options={platforms}
-      value={platform}
-      submit={validatePlatformSelection}
-      change={selectPlatform}
-      error={platformSelectError}
-    />
-    <AuthenticationStep next={next} prev={prev} platform={platform!} />
+    <Step>
+      <StepLabel>Select a platform</StepLabel>
+      <StepContent>
+        <PlatformSelector
+          options={platforms}
+          value={platform}
+          onSubmit={next}
+          onChange={setPlatform}
+        />
+      </StepContent>
+    </Step>
+    <Step>
+      <StepLabel>Enter your API key</StepLabel>
+      <StepContent>
+        <TokenInput
+          token={token}
+          onSubmit={next}
+          onCancel={prev}
+          platform={getPlatform(platform)}
+        />
+      </StepContent>
+    </Step>
     <Step>
       <StepLabel>Select projects</StepLabel>
       <StepContent>
@@ -61,10 +57,6 @@ const ConfigPage: React.SFC<Props> = ({
   </Stepper>
 );
 
-const enhance = compose<Props, {}>(
-  withStepNavigation,
-  withPlatformHandlers,
-  withValidations
-);
+const enhance = compose<Props, {}>(withStepNavigation, withPlatformHandlers);
 
 export default enhance(ConfigPage);

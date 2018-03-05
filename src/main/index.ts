@@ -1,8 +1,8 @@
+import electron from "electron";
 import path from "path";
 import url from "url";
-import electron from "electron";
 
-var win = null;
+let win = null;
 
 electron.app.on("ready", () => {
   win = new electron.BrowserWindow();

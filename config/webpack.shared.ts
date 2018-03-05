@@ -21,6 +21,10 @@ export default {
     ]
   },
   resolve: {
+    alias: {
+      renderer: path.resolve(__dirname, "../src/renderer"),
+      main: path.resolve(__dirname, "../src/main")
+    },
     extensions: [".tsx", ".ts", ".js"]
   },
   plugins: [
