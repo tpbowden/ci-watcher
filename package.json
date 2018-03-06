@@ -2,7 +2,7 @@
   "license": "MIT",
   "main": "dist/main.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack -p --silent",
+    "build": "NODE_ENV=production webpack -p --display errors-only",
     "build:renderer": "webpack-dev-server --port 8080 --config ./config/webpack.renderer.ts",
     "build:main": "webpack --config ./config/webpack.main.ts -w",
     "build:watch": "concurrently 'yarn build:renderer' 'yarn build:main'",
