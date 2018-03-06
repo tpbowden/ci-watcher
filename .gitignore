@@ -2,3 +2,4 @@ tags
 node_modules
 dist
 package
+yarn-error.log

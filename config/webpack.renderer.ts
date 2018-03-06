@@ -1,4 +1,4 @@
-import { Configuration } from 'webpack';
+import { Configuration } from "webpack";
 import path from "path";
 import shared from "./webpack.shared";
 
