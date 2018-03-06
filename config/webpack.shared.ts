@@ -1,8 +1,8 @@
 import path from "path";
-import webpack from "webpack";
+import webpack, { Configuration } from "webpack";
 import env from "./webpack.env";
 
-export default {
+const config: Configuration = {
   module: {
     rules: [
       {
@@ -40,3 +40,5 @@ export default {
   },
   ...env
 };
+
+export default config;

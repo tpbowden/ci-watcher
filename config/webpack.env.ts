@@ -1,9 +1,11 @@
-const prod = {
+import { Configuration } from 'webpack';
+
+const prod: Configuration = {
   mode: "production",
   devtool: "source-map"
 };
 
-const dev = {
+const dev: Configuration = {
   mode: "development",
   devtool: "cheap-module-eval-source-map"
 };

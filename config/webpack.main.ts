@@ -1,8 +1,9 @@
 import path from "path";
+import { Configuration } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import shared from "./webpack.shared";
 
-export default {
+const config: Configuration = {
   ...shared,
   target: "electron-main",
   node: {
@@ -20,3 +21,5 @@ export default {
     })
   ]
 };
+
+export default config;
