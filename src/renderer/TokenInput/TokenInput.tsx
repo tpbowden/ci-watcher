@@ -1,42 +1,66 @@
 import React from "react";
-import { compose } from "recompose";
+import { compose, StateHandler, withStateHandlers } from "recompose";
 
 import Button from "material-ui/Button";
 import { Step, StepContent, StepLabel } from "material-ui/Stepper";
 import TextField from "material-ui/TextField";
 import { Platform } from "renderer/platforms";
-import withValidation, { ValidationProps } from "./withValidation";
 
-interface Props {
+interface InnerProps {
   platform: Platform;
-  token: string;
-  onSubmit(): void;
+  onSubmit(token: string): void;
   onCancel(): void;
 }
 
-const TokenInput: React.SFC<Props & ValidationProps> = ({
+const TokenInput: React.SFC<InnerProps & State & Handlers> = ({
   platform,
   onSubmit,
   onCancel,
   token,
-  errors,
-  validate
+  onChange
 }) => (
-  <div>
-    {errors && <div>{errors}</div>}
-    <TextField id="token" label={`API key for ${platform.name}`} />
-    <Button
-      size="small"
-      variant="raised"
-      color="primary"
-      onClick={() => validate() && !Boolean(errors) && onSubmit()}
-    >
-      Next
+    <div>
+      <TextField
+        id="token"
+        onChange={onChange}
+        label={`API key for ${platform.name}`}
+      />
+      <Button
+        size="small"
+        variant="raised"
+        color="primary"
+        onClick={() => onSubmit(token)}
+      >
+        Next
     </Button>
-    <Button size="small" variant="raised" onClick={onCancel}>
-      Back
+      <Button size="small" variant="raised" onClick={onCancel}>
+        Back
     </Button>
-  </div>
-);
+    </div>
+  );
 
-export default compose<Props, Props>(withValidation)(TokenInput);
+interface State {
+  token: string;
+}
+
+// tslint:disable-next-line: interface-over-type-literal
+type Handlers = {
+  onChange: StateHandler<State>;
+};
+
+interface OuterProps {
+  platform: Platform;
+  onCancel(): void;
+  onSubmit(token: string): void;
+}
+
+export default compose<InnerProps, OuterProps>(
+  withStateHandlers<State, Handlers, {}>(
+    { token: "" },
+    {
+      onChange: () => ({
+        target: { value }
+      }: React.ChangeEvent<HTMLInputElement>) => ({ token: value })
+    }
+  )
+)(TokenInput);

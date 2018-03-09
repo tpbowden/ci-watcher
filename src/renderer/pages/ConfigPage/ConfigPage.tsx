@@ -2,21 +2,16 @@ import React from "react";
 
 import Button from "material-ui/Button";
 import Stepper, { Step, StepContent, StepLabel } from "material-ui/Stepper";
-import { compose, withHandlers } from "recompose";
 
 import platforms, { getPlatform } from "renderer/platforms";
 
 import PlatformSelector from "renderer/PlatformSelector";
 import TokenInput from "renderer/TokenInput";
-import withPlatformHandlers, { PlatformProps } from "./withConfigHandlers";
-import withStepNavigation, { NavigationProps } from "./withStepNavigation";
+import withConfigHandlers, { ConfigProps } from "./withConfigHandlers";
 
-type Props = NavigationProps & PlatformProps;
-
-const ConfigPage: React.SFC<Props> = ({
+const ConfigPage: React.SFC<ConfigProps> = ({
   stage,
-  next,
-  prev,
+  back,
   setPlatform,
   token,
   setToken,
@@ -26,30 +21,20 @@ const ConfigPage: React.SFC<Props> = ({
     <Step>
       <StepLabel>Select a platform</StepLabel>
       <StepContent>
-        <PlatformSelector
-          options={platforms}
-          value={platform}
-          onSubmit={next}
-          onChange={setPlatform}
-        />
+        <PlatformSelector onSubmit={setPlatform} />
       </StepContent>
     </Step>
     <Step>
       <StepLabel>Enter your API key</StepLabel>
       <StepContent>
-        <TokenInput
-          token={token}
-          onSubmit={next}
-          onCancel={prev}
-          platform={getPlatform(platform)}
-        />
+        <TokenInput platform={platform!} onSubmit={setToken} onCancel={back} />
       </StepContent>
     </Step>
     <Step>
       <StepLabel>Select projects</StepLabel>
       <StepContent>
         <h1>Select projects</h1>
-        <Button size="small" variant="raised" onClick={prev}>
+        <Button size="small" variant="raised" onClick={back}>
           Back
         </Button>
       </StepContent>
@@ -57,6 +42,4 @@ const ConfigPage: React.SFC<Props> = ({
   </Stepper>
 );
 
-const enhance = compose<Props, {}>(withStepNavigation, withPlatformHandlers);
-
-export default enhance(ConfigPage);
+export default withConfigHandlers(ConfigPage);

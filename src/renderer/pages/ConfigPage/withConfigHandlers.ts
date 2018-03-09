@@ -4,33 +4,30 @@ import {
   StateHandlerMap,
   withStateHandlers
 } from "recompose";
+import { Platform } from "renderer/platforms";
 
 interface State {
-  platform: string;
-  token: string;
+  platform?: Platform;
+  token?: string;
+  stage: number;
 }
 
-interface Handlers extends StateHandlerMap<State> {
+// tslint:disable-next-line: interface-over-type-literal
+type Handlers = {
+  back: StateHandler<State>;
   setPlatform: StateHandler<State>;
-}
+  setToken: StateHandler<State>;
+};
 
-export type PlatformProps = State & Handlers;
+export type ConfigProps = State & Handlers;
 
-const withPlatformHandlers = withStateHandlers<State, Handlers, {}>(
+const withConfigHandlers = withStateHandlers<State, Handlers, {}>(
+  { stage: 0 },
   {
-    platform: "Circle CI",
-    token: ""
-  },
-  {
-    setPlatform: ({ token, ...state }) => ({ target: { value } }) => ({
-      ...state,
-      token
-    }),
-    setToken: ({ platform, ...state }) => ({ target: { value } }) => ({
-      ...state,
-      platform
-    })
+    back: ({ stage }) => () => ({ stage: stage - 1 }),
+    setPlatform: ({ stage }) => (platform) => ({ stage: stage + 1, platform }),
+    setToken: ({ stage }) => (token) => ({ stage: stage + 1, token }),
   }
 );
 
-export default withPlatformHandlers;
+export default withConfigHandlers;
