@@ -26,8 +26,8 @@ const withConfigHandlers = withStateHandlers<State, Handlers, {}>(
   {
     back: ({ stage }) => () => ({ stage: stage - 1 }),
     setPlatform: ({ stage }) => (platform) => ({ stage: stage + 1, platform }),
-    setToken: ({ stage }) => (token) => ({ stage: stage + 1, token }),
-  }
+    setToken: ({ stage, platform }) => (token) => ({ stage: stage + 1, token })
+  },
 );
 
 export default withConfigHandlers;

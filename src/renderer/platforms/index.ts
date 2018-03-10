@@ -2,6 +2,7 @@ import circle from "renderer/platforms/circle";
 
 export interface Platform {
   name: string;
+  validateToken(token: string): Promise<boolean>;
 }
 
 const platforms = {
