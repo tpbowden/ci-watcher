@@ -2,34 +2,42 @@ import React from "react";
 import { compose, StateHandler, withStateHandlers } from "recompose";
 
 import Button from "material-ui/Button";
+import { CircularProgress } from 'material-ui/Progress';
+import { FormControl } from 'material-ui/Form';
 import { Step, StepContent, StepLabel } from "material-ui/Stepper";
 import TextField from "material-ui/TextField";
 import { Platform } from "renderer/platforms";
 
-interface InnerProps {
+interface Props {
   platform: Platform;
-  onSubmit(token: string): void;
+  onSubmit(): void;
   onCancel(): void;
+  value: string;
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
+  loading?: boolean;
 }
 
-const TokenInput: React.SFC<InnerProps & State & Handlers> = ({
+const TokenInput: React.SFC<Props> = ({
   platform,
   onSubmit,
   onCancel,
-  token,
+  loading,
+  value,
   onChange
 }) => (
     <div>
       <TextField
         id="token"
         onChange={onChange}
+        value={value}
         label={`API key for ${platform.name}`}
       />
+      {loading && <CircularProgress size={24} />}
       <Button
         size="small"
         variant="raised"
         color="primary"
-        onClick={() => onSubmit(token)}
+        onClick={onSubmit}
       >
         Next
     </Button>
@@ -54,13 +62,4 @@ interface OuterProps {
   onSubmit(token: string): void;
 }
 
-export default compose<InnerProps, OuterProps>(
-  withStateHandlers<State, Handlers, {}>(
-    { token: "" },
-    {
-      onChange: () => ({
-        target: { value }
-      }: React.ChangeEvent<HTMLInputElement>) => ({ token: value })
-    }
-  )
-)(TokenInput);
+export default TokenInput;

@@ -12,10 +12,11 @@ import withConfigHandlers, { ConfigProps } from "./withConfigHandlers";
 
 const ConfigPage: React.SFC<ConfigProps & Handlers> = ({
   stage,
+  next,
   back,
   setPlatform,
   token,
-  onSubmitToken,
+  submitToken,
   setToken,
   platform
 }) => (
@@ -23,13 +24,24 @@ const ConfigPage: React.SFC<ConfigProps & Handlers> = ({
       <Step>
         <StepLabel>Select a platform</StepLabel>
         <StepContent>
-          <PlatformSelector onSubmit={setPlatform} />
+          <PlatformSelector
+            value={platform.name}
+            onChange={setPlatform}
+            onSubmit={next}
+            options={platforms}
+          />
         </StepContent>
       </Step>
       <Step>
         <StepLabel>Enter your API key</StepLabel>
         <StepContent>
-          <TokenInput platform={platform!} onSubmit={onSubmitToken} onCancel={back} />
+          <TokenInput
+            platform={platform}
+            value={token}
+            onChange={setToken}
+            onSubmit={submitToken}
+            onCancel={back}
+          />
         </StepContent>
       </Step>
       <Step>
@@ -45,17 +57,17 @@ const ConfigPage: React.SFC<ConfigProps & Handlers> = ({
   );
 
 interface Handlers {
-  onSubmitToken(token: string): Promise<boolean>;
+  submitToken(): Promise<boolean>;
 }
 
 export default compose(
   withConfigHandlers,
   withHandlers<ConfigProps, Handlers>({
-    onSubmitToken: ({ setToken, platform }) => async (token: string) => {
+    submitToken: ({ token, platform, next }) => async () => {
       try {
         const valid = await platform!.validateToken(token);
         if (valid) {
-          setToken(token);
+          next()
         } else {
           console.log("nah mate");
         }

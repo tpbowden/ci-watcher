@@ -13,19 +13,21 @@ import Radio, { RadioGroup } from "material-ui/Radio";
 
 import platforms, { getPlatform, Platform } from "renderer/platforms";
 
-export interface InnerProps {
+interface Props {
   options: Platform[];
-  onSubmit(platform: Platform): void;
+  value: string;
+  onChange(event: React.ChangeEvent<HTMLFormElement>): void;
+  onSubmit(): void;
 }
 
-const PlatformSelector: React.SFC<InnerProps & State & Handlers> = ({
+const PlatformSelector: React.SFC<Props> = ({
   options,
   onSubmit,
-  platform,
-  onChange
+  onChange,
+  value,
 }) => (
     <FormControl>
-      <RadioGroup onChange={onChange} value={platform}>
+      <RadioGroup onChange={onChange} value={value}>
         {options.map((p) => (
           <FormControlLabel
             key={p.name}
@@ -39,34 +41,11 @@ const PlatformSelector: React.SFC<InnerProps & State & Handlers> = ({
         size="small"
         variant="raised"
         color="primary"
-        onClick={() => onSubmit(getPlatform(platform))}
+        onClick={onSubmit}
       >
         Next
     </Button>
     </FormControl>
   );
 
-export interface OuterProps {
-  onSubmit(platform: Platform): void;
-}
-
-// tslint:disable-next-line: interface-over-type-literal
-type Handlers = {
-  onChange: StateHandler<State>;
-};
-
-interface State {
-  platform: string;
-}
-
-export default compose<InnerProps, OuterProps>(
-  withProps({ options: platforms }),
-  withStateHandlers<State, Handlers, {}>(
-    { platform: platforms[0].name },
-    {
-      onChange: ({ platform }) => ({
-        target: { value }
-      }: React.ChangeEvent<HTMLInputElement>) => ({ platform: value })
-    }
-  )
-)(PlatformSelector);
+export default PlatformSelector;

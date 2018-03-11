@@ -4,16 +4,17 @@ import {
   StateHandlerMap,
   withStateHandlers
 } from "recompose";
-import { Platform } from "renderer/platforms";
+import platforms, { Platform } from "renderer/platforms";
 
 interface State {
-  platform?: Platform;
-  token?: string;
+  platform: Platform;
+  token: string;
   stage: number;
 }
 
 // tslint:disable-next-line: interface-over-type-literal
 type Handlers = {
+  next: StateHandler<State>;
   back: StateHandler<State>;
   setPlatform: StateHandler<State>;
   setToken: StateHandler<State>;
@@ -22,11 +23,16 @@ type Handlers = {
 export type ConfigProps = State & Handlers;
 
 const withConfigHandlers = withStateHandlers<State, Handlers, {}>(
-  { stage: 0 },
   {
+    stage: 0,
+    token: "",
+    platform: platforms[0]
+  },
+  {
+    next: ({ stage }) => () => ({ stage: stage + 1 }),
     back: ({ stage }) => () => ({ stage: stage - 1 }),
-    setPlatform: ({ stage }) => (platform) => ({ stage: stage + 1, platform }),
-    setToken: ({ stage, platform }) => (token) => ({ stage: stage + 1, token })
+    setPlatform: () => ({ target: { value: platform } }) => ({ platform }),
+    setToken: () => ({ target: { value: token } }) => ({ token })
   },
 );
 
