@@ -1,10 +1,7 @@
 import React from "react";
-import { compose, StateHandler, withStateHandlers } from "recompose";
 
 import Button from "material-ui/Button";
-import { FormControl } from "material-ui/Form";
 import { CircularProgress } from "material-ui/Progress";
-import { Step, StepContent, StepLabel } from "material-ui/Stepper";
 import TextField from "material-ui/TextField";
 import { Platform } from "renderer/platforms";
 
@@ -41,20 +38,5 @@ const TokenInput: React.SFC<Props> = ({
     </Button>
   </div>
 );
-
-interface State {
-  token: string;
-}
-
-// tslint:disable-next-line: interface-over-type-literal
-type Handlers = {
-  onChange: StateHandler<State>;
-};
-
-interface OuterProps {
-  platform: Platform;
-  onCancel(): void;
-  onSubmit(token: string): void;
-}
 
 export default TokenInput;

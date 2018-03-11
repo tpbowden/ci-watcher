@@ -4,7 +4,7 @@ import { compose, withHandlers } from "recompose";
 import Button from "material-ui/Button";
 import Stepper, { Step, StepContent, StepLabel } from "material-ui/Stepper";
 
-import platforms, { getPlatform } from "renderer/platforms";
+import platforms from "renderer/platforms";
 
 import PlatformSelector from "renderer/PlatformSelector";
 import TokenInput from "renderer/TokenInput";

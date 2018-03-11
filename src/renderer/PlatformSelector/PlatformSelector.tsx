@@ -1,12 +1,10 @@
 import React from "react";
-import { compose, StateHandler, withProps, withStateHandlers } from "recompose";
 
 import Button from "material-ui/Button";
 import { FormControl, FormControlLabel } from "material-ui/Form";
-import { MenuItem, MenuList } from "material-ui/Menu";
 import Radio, { RadioGroup } from "material-ui/Radio";
 
-import platforms, { getPlatform, Platform } from "renderer/platforms";
+import { Platform } from "renderer/platforms";
 
 interface Props {
   options: Platform[];

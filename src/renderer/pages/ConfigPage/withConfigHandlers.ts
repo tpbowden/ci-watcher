@@ -1,9 +1,4 @@
-import {
-  compose,
-  StateHandler,
-  StateHandlerMap,
-  withStateHandlers
-} from "recompose";
+import { StateHandler, withStateHandlers } from "recompose";
 import platforms, { Platform } from "renderer/platforms";
 
 interface State {

@@ -4,7 +4,8 @@
   "jsRules": {},
   "rules": {
     "interface-name": false,
-    "trailing-comma": false
+    "trailing-comma": false,
+    "no-unused-variable": true
   },
   "rulesDirectory": []
 }
