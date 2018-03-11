@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers } from "recompose";
 
 import Button from "material-ui/Button";
 import Stepper, { Step, StepContent, StepLabel } from "material-ui/Stepper";
@@ -20,41 +20,41 @@ const ConfigPage: React.SFC<ConfigProps & Handlers> = ({
   setToken,
   platform
 }) => (
-    <Stepper activeStep={stage} orientation="vertical">
-      <Step>
-        <StepLabel>Select a platform</StepLabel>
-        <StepContent>
-          <PlatformSelector
-            value={platform.name}
-            onChange={setPlatform}
-            onSubmit={next}
-            options={platforms}
-          />
-        </StepContent>
-      </Step>
-      <Step>
-        <StepLabel>Enter your API key</StepLabel>
-        <StepContent>
-          <TokenInput
-            platform={platform}
-            value={token}
-            onChange={setToken}
-            onSubmit={submitToken}
-            onCancel={back}
-          />
-        </StepContent>
-      </Step>
-      <Step>
-        <StepLabel>Select projects</StepLabel>
-        <StepContent>
-          <h1>Select projects</h1>
-          <Button size="small" variant="raised" onClick={back}>
-            Back
+  <Stepper activeStep={stage} orientation="vertical">
+    <Step>
+      <StepLabel>Select a platform</StepLabel>
+      <StepContent>
+        <PlatformSelector
+          value={platform.name}
+          onChange={setPlatform}
+          onSubmit={next}
+          options={platforms}
+        />
+      </StepContent>
+    </Step>
+    <Step>
+      <StepLabel>Enter your API key</StepLabel>
+      <StepContent>
+        <TokenInput
+          platform={platform}
+          value={token}
+          onChange={setToken}
+          onSubmit={submitToken}
+          onCancel={back}
+        />
+      </StepContent>
+    </Step>
+    <Step>
+      <StepLabel>Select projects</StepLabel>
+      <StepContent>
+        <h1>Select projects</h1>
+        <Button size="small" variant="raised" onClick={back}>
+          Back
         </Button>
-        </StepContent>
-      </Step>
-    </Stepper>
-  );
+      </StepContent>
+    </Step>
+  </Stepper>
+);
 
 interface Handlers {
   submitToken(): Promise<boolean>;
@@ -67,12 +67,12 @@ export default compose(
       try {
         const valid = await platform!.validateToken(token);
         if (valid) {
-          next()
+          next();
         } else {
-          console.log("nah mate");
+          return;
         }
       } catch (e) {
-        console.log("failure");
+        return;
       }
     }
   })
