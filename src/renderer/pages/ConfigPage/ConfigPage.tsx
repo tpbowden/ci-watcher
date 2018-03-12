@@ -1,12 +1,12 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
 
-import Button from "material-ui/Button";
 import Stepper, { Step, StepContent, StepLabel } from "material-ui/Stepper";
 
 import platforms from "renderer/platforms";
 
 import PlatformSelector from "renderer/PlatformSelector";
+import ProjectSelector from "renderer/ProjectSelector";
 import TokenInput from "renderer/TokenInput";
 import withConfigHandlers, { ConfigProps } from "./withConfigHandlers";
 
@@ -18,6 +18,8 @@ const ConfigPage: React.SFC<ConfigProps & Handlers> = ({
   token,
   submitToken,
   setToken,
+  validatingToken,
+  tokenErrors,
   platform
 }) => (
   <Stepper activeStep={stage} orientation="vertical">
@@ -41,16 +43,15 @@ const ConfigPage: React.SFC<ConfigProps & Handlers> = ({
           onChange={setToken}
           onSubmit={submitToken}
           onCancel={back}
+          loading={validatingToken}
+          errors={tokenErrors}
         />
       </StepContent>
     </Step>
     <Step>
       <StepLabel>Select projects</StepLabel>
       <StepContent>
-        <h1>Select projects</h1>
-        <Button size="small" variant="raised" onClick={back}>
-          Back
-        </Button>
+        <ProjectSelector platform={platform} token={token} />
       </StepContent>
     </Step>
   </Stepper>
@@ -63,16 +64,32 @@ interface Handlers {
 export default compose(
   withConfigHandlers,
   withHandlers<ConfigProps, Handlers>({
-    submitToken: ({ token, platform, next }) => async () => {
+    submitToken: ({
+      token,
+      platform,
+      next,
+      setValidatingState,
+      setTokenErrors
+    }) => async () => {
+      setValidatingState(true);
+      setTokenErrors();
       try {
-        const valid = await platform!.validateToken(token);
-        if (valid) {
-          next();
-        } else {
+        if (token.length < 1) {
+          setTokenErrors("Please enter a token");
           return;
         }
+
+        const valid = await platform!.validateToken(token);
+        if (valid) {
+          setTokenErrors();
+          next();
+        } else {
+          setTokenErrors("Invalid token");
+        }
       } catch (e) {
-        return;
+        setTokenErrors("Request failed, please try again later");
+      } finally {
+        setValidatingState(false);
       }
     }
   })

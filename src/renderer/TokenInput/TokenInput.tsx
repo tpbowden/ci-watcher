@@ -6,6 +6,7 @@ import TextField from "material-ui/TextField";
 import { Platform } from "renderer/platforms";
 
 interface Props {
+  errors?: string;
   loading?: boolean;
   platform: Platform;
   value: string;
@@ -20,6 +21,7 @@ const TokenInput: React.SFC<Props> = ({
   onCancel,
   loading,
   value,
+  errors,
   onChange
 }) => (
   <div>
@@ -27,6 +29,8 @@ const TokenInput: React.SFC<Props> = ({
       id="token"
       onChange={onChange}
       value={value}
+      helperText={errors}
+      error={Boolean(errors)}
       label={`API key for ${platform.name}`}
     />
     {loading && <CircularProgress size={24} />}
