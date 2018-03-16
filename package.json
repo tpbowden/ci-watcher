@@ -21,7 +21,7 @@
     "@types/react-dom": "^16.0.4",
     "@types/react-router": "^4.0.22",
     "@types/recompose": "^0.24.6",
-    "@types/webpack": "^4.0.0",
+    "@types/webpack": "^4.1.1",
     "concurrently": "^3.5.1",
     "css-loader": "^0.28.10",
     "electron": "1.8.3",
