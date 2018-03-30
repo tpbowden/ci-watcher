@@ -58,7 +58,7 @@ const ConfigPage: React.SFC<ConfigProps & Handlers> = ({
 );
 
 interface Handlers {
-  submitToken(): Promise<boolean>;
+  submitToken(): Promise<void>;
 }
 
 export default compose(
