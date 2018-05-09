@@ -27,7 +27,7 @@
     "electron": "1.8.6",
     "electron-packager": "^12.0.2",
     "html-webpack-plugin": "^3.2.0",
-    "material-ui": "^1.0.0-beta.45",
+    "material-ui": "^1.0.0-beta.46",
     "material-ui-icons": "^1.0.0-beta.36",
     "mocha": "^5.1.1",
     "prettier": "^1.12.1",
