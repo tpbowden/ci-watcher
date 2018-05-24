@@ -14,7 +14,7 @@ const config: Configuration = {
     main: path.resolve(__dirname, "../src/main/index.ts")
   },
   plugins: [
-    ...shared.plugins,
+    ...shared.plugins!,
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "../index.html.ejs"),
       inject: false
