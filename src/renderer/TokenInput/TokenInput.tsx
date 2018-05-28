@@ -1,8 +1,8 @@
 import React from "react";
 
-import Button from "material-ui/Button";
-import { CircularProgress } from "material-ui/Progress";
-import TextField from "material-ui/TextField";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import TextField from "@material-ui/core/TextField";
 import { Platform } from "renderer/platforms";
 
 interface Props {

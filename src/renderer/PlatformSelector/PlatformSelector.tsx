@@ -1,8 +1,10 @@
 import React from "react";
 
-import Button from "material-ui/Button";
-import { FormControl, FormControlLabel } from "material-ui/Form";
-import Radio, { RadioGroup } from "material-ui/Radio";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 import { Platform } from "renderer/platforms";
 
