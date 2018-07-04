@@ -125,9 +125,9 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/webpack@*", "@types/webpack@^4.4.4":
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.4.tgz#f001a0a43cf5b433d57a1a22366fe1939d648957"
+"@types/webpack@*", "@types/webpack@^4.4.5":
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.5.tgz#d45596fb67aeb724495ef5e7c78771bfc35f2955"
   dependencies:
     "@types/node" "*"
     "@types/tapable" "*"
