@@ -58,11 +58,12 @@
     "@types/relateurl" "*"
     "@types/uglify-js" "*"
 
-"@types/html-webpack-plugin@^2.30.3":
-  version "2.30.3"
-  resolved "https://registry.yarnpkg.com/@types/html-webpack-plugin/-/html-webpack-plugin-2.30.3.tgz#848baba8e35010c6ef6d36b04174820b9d884583"
+"@types/html-webpack-plugin@^2.30.4":
+  version "2.30.4"
+  resolved "https://registry.yarnpkg.com/@types/html-webpack-plugin/-/html-webpack-plugin-2.30.4.tgz#65219d1a9b6ad4027100107d3dd08583a890b4b1"
   dependencies:
     "@types/html-minifier" "*"
+    "@types/tapable" "*"
     "@types/webpack" "*"
 
 "@types/jss@^9.5.3":
