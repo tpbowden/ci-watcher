@@ -9,8 +9,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
-import ConfigPage from "./pages/ConfigPage";
-
 const App = () => (
   <div>
     <AppBar position="static">
@@ -20,9 +18,7 @@ const App = () => (
         </Typography>
       </Toolbar>
     </AppBar>
-    <MemoryRouter>
-      <Route path="/" render={() => <ConfigPage />} />
-    </MemoryRouter>
+    <MemoryRouter />
   </div>
 );
 
