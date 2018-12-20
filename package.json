@@ -17,12 +17,16 @@
     "package:all": "electron-packager . CIWatcher --all"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
     "@material-ui/core": "^3.7.0",
     "@types/html-webpack-plugin": "^3.2.0",
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",
     "@types/react-router": "^4.4.3",
     "@types/webpack": "^4.4.21",
+    "babel-loader": "^8.0.4",
     "concurrently": "^4.1.0",
     "css-loader": "^2.0.1",
     "electron": "4.0.0",
