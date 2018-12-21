@@ -1,15 +1,13 @@
-import { Configuration } from "webpack";
-
-const prod: Configuration = {
+const prod = {
   devtool: "source-map",
   mode: "production"
 };
 
-const dev: Configuration = {
+const dev = {
   devtool: "cheap-module-eval-source-map",
   mode: "development"
 };
 
 const config = process.env.NODE_ENV === "production" ? prod : dev;
 
-export default config;
+module.exports = config;

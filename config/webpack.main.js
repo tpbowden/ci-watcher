@@ -1,19 +1,20 @@
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import path from "path";
-import { Configuration } from "webpack";
-import shared from "./webpack.shared";
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
+const webpackNodeExternals = require("webpack-node-externals");
+const shared = require("./webpack.shared");
 
-const config: Configuration = {
+module.exports = {
   ...shared,
   entry: {
     main: path.resolve(__dirname, "../src/main/index.ts")
   },
+  externals: [webpackNodeExternals()],
   node: {
     __dirname: false,
     __filename: false
   },
   plugins: [
-    ...shared.plugins!,
+    ...shared.plugins,
     new HtmlWebpackPlugin({
       inject: false,
       template: path.resolve(__dirname, "../index.html.ejs")
@@ -21,5 +22,3 @@ const config: Configuration = {
   ],
   target: "electron-main"
 };
-
-export default config;

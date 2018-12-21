@@ -1,12 +1,11 @@
-import path from "path";
-import webpack, { Configuration } from "webpack";
-import env from "./webpack.env";
+const path = require("path");
+const webpack = require("webpack");
+const env = require("./webpack.env");
 
-const config: Configuration = {
+module.exports = {
   module: {
     rules: [
       {
-        exclude: path.resolve(__dirname, "../node_modules"),
         test: /\.tsx?$/,
         use: "babel-loader"
       },
@@ -15,8 +14,8 @@ const config: Configuration = {
         use: ["style-loader", "css-loader"]
       },
       {
-        loader: "url-loader?limit=100000",
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        use: "url-loader?limit=100000"
       }
     ]
   },
@@ -40,5 +39,3 @@ const config: Configuration = {
   },
   ...env
 };
-
-export default config;

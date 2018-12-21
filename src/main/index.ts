@@ -1,6 +1,7 @@
-import electron from "electron";
+import electron, { ipcMain } from "electron";
 import path from "path";
 import url from "url";
+import { getToken } from "./authClient";
 
 let win = null;
 
@@ -13,4 +14,9 @@ electron.app.on("ready", () => {
       slashes: true
     })
   );
+});
+
+ipcMain.on("get-token", async (event: any) => {
+  const token = await getToken();
+  event.sender.send("get-token", token);
 });
