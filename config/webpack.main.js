@@ -1,12 +1,14 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpackNodeExternals = require("webpack-node-externals");
+
 const shared = require("./webpack.shared");
 
 module.exports = {
   ...shared,
   entry: {
-    main: path.resolve(__dirname, "../src/main/index.ts")
+    main: path.resolve(__dirname, "../src/main/main.ts")
   },
   externals: [webpackNodeExternals()],
   node: {

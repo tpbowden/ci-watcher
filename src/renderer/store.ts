@@ -7,7 +7,7 @@ import {
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
 
-import { AuthAction, reducer as authReducer } from "./Auth/ducks";
+import { AuthAction, authSaga, reducer as authReducer } from "./Auth/ducks";
 import { MainAction, mainSaga, reducer as mainReducer } from "./Main/ducks";
 
 const reducer = combineReducers({
@@ -26,7 +26,7 @@ export type State = ReturnType<typeof reducer>;
 export const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 
 function* rootSaga() {
-  yield all([mainSaga()]);
+  yield all([mainSaga(), authSaga()]);
 }
 
 sagaMiddleware.run(rootSaga);

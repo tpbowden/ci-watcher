@@ -20,12 +20,12 @@ export type MainAction =
   | InitializeApplicationAction
   | InitializeApplicationSuccessAction;
 
-export const createInitializeApplicationAction = (): InitializeApplicationAction => ({
+export const initializeApplication = (): InitializeApplicationAction => ({
   payload: {},
   type: INITIALIZE_APPLICATION
 });
 
-export const createInitializeApplicationSuccessAction = (): InitializeApplicationSuccessAction => ({
+export const initializeApplicationSuccess = (): InitializeApplicationSuccessAction => ({
   payload: {},
   type: INITIALIZE_APPLICATION_SUCCESS
 });
@@ -51,7 +51,7 @@ export const reducer = (
 
 function* initSaga() {
   yield call(authInit);
-  yield put(createInitializeApplicationSuccessAction());
+  yield put(initializeApplicationSuccess());
 }
 
 export function* mainSaga() {
