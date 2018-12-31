@@ -4,7 +4,6 @@ import { State } from "../store";
 
 interface AuthState {
   idToken?: string;
-  refreshToken?: string;
   inProgress?: string;
 }
 
@@ -27,9 +26,8 @@ interface AuthSuccessAction {
 
 interface AuthErrorAction {
   type: typeof AUTH_ERROR;
-  payload: {
-    error: Error;
-  };
+  error: true;
+  payload: Error;
 }
 
 interface AuthInProgressAction {
@@ -50,7 +48,8 @@ export const authSuccess = (idToken: string): AuthSuccessAction => ({
 });
 
 export const authError = (error: Error): AuthErrorAction => ({
-  payload: { error },
+  error: true,
+  payload: error,
   type: AUTH_ERROR
 });
 
@@ -66,12 +65,20 @@ export type AuthAction =
   | AuthInProgressAction;
 
 export const reducer = (state: AuthState = {}, action: AuthAction) => {
-  return state;
+  switch (action.type) {
+    case AUTH_SUCCESS:
+      return {
+        ...state,
+        idToken: action.payload.idToken
+      };
+    default:
+      return state;
+  }
 };
 
 const getToken = () =>
   new Promise<string | null>((resolve) => {
-    ipcRenderer.once("get-token", (token: string | null) => {
+    ipcRenderer.once("get-token", (_: Electron.Event, token: string | null) => {
       resolve(token);
     });
     ipcRenderer.send("get-token");

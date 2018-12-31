@@ -11,6 +11,7 @@ import { StyledComponentProps, withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
+import { Authenticated } from "../Auth/Authenticated";
 import { authenticate as authAction } from "../Auth/ducks";
 import { Unauthenticated } from "../Auth/Unauthenticated";
 import { Dispatch, State } from "../store";
@@ -71,6 +72,7 @@ class MainComponent extends React.Component<InnerProps> {
             </Button>
           </Paper>
         </Unauthenticated>
+        <Authenticated>{(token) => token}</Authenticated>
         <MemoryRouter />
       </main>
     );
@@ -86,10 +88,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   init: () => dispatch(initializeApplication())
 });
 
-export const Main = compose(
+export const Main = withStyles(styles)(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  ),
-  withStyles(styles)
-)(MainComponent);
+  )(MainComponent)
+);

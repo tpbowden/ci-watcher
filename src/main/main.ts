@@ -1,7 +1,7 @@
 import electron, { ipcMain } from "electron";
 import path from "path";
 import url from "url";
-import { getToken, login } from "./authClient";
+import { getToken, login, saveToken } from "./authClient";
 
 let win: Electron.BrowserWindow | null = null;
 
@@ -30,6 +30,7 @@ ipcMain.on("handle-login", async (event: Electron.Event) => {
     const token = await login();
     win!.show();
     event.sender.send("handle-login", token);
+    saveToken(token);
   } catch (e) {
     event.sender.send("handle-login", null, new Error("login failed"));
   }

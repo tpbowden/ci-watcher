@@ -19,17 +19,17 @@ export class WebServer {
       app.get("/callback", (req, res) => {
         if (req.query.error) {
           reject(new Error(req.query.error));
-        }
-        if (req.query.state === state) {
-          resolve(req.query.code);
-        } else {
+        } else if (req.query.state !== state) {
           reject(new Error("State mismatch"));
+        } else {
+          resolve(req.query.code);
         }
         res.end(`
         <html>
-        <head>CI Watcher Authenticating</head>
-        <body onload="window.open('', '_self', '');window.close()">
-        </body>
+          <head>CI Watcher Authentication</head>
+          <body onload="window.open('', '_self', '');window.close()">
+            This window should close automatically. If not, please close it now.
+          </body>
         </html>
         `);
       });

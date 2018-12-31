@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const env = require("./webpack.env");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   module: {
@@ -28,7 +29,8 @@ module.exports = {
       "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
-    })
+    }),
+    new Dotenv()
   ],
   resolve: {
     alias: {
