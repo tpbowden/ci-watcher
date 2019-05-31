@@ -37,7 +37,7 @@
     "recompose": "^0.28.1",
     "spectron": "^3.8.0",
     "style-loader": "^0.22.1",
-    "ts-loader": "^4.5.0",
+    "ts-loader": "^6.0.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "typeface-roboto": "^0.0.54",
